@@ -13,11 +13,17 @@ public class TankDrive extends CommandBase {
 
   // DriveTrain subsystem
   private final DriveTrain driveTrain;
+  private final double scale;
   private final XboxController driver = new XboxController(0);
 
   public TankDrive(DriveTrain driveTrain) {
+    this(driveTrain, 0.5);
+  }
+
+  public TankDrive(DriveTrain driveTrain, double speedScale) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
+    this.scale = speedScale;
     addRequirements(this.driveTrain);
   }
 
@@ -33,7 +39,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
 
-    driveTrain.tankDrive(0.5 * driver.getRawAxis(XboxController.Axis.kLeftY.value), 0.5 * driver.getRawAxis(XboxController.Axis.kRightY.value));
+    driveTrain.tankDrive(scale * driver.getRawAxis(XboxController.Axis.kLeftY.value), scale * driver.getRawAxis(XboxController.Axis.kRightY.value));
   
   }
 

@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class TankDriveFast extends CommandBase {
+public class TankDriveCubed extends CommandBase {
   /** Creates a new TankDriveFast. */
 
   private final DriveTrain driveTrain;
   private final XboxController driver = new XboxController(0);
 
-  public TankDriveFast(DriveTrain driveTrain) {
+  public TankDriveCubed(DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     addRequirements(this.driveTrain);
@@ -32,7 +32,7 @@ public class TankDriveFast extends CommandBase {
   @Override
   public void execute() {
 
-    driveTrain.tankDrive(driver.getRawAxis(XboxController.Axis.kLeftY.value), driver.getRawAxis(XboxController.Axis.kRightY.value));
+    driveTrain.tankDrive(Math.pow(driver.getRawAxis(XboxController.Axis.kLeftY.value), 3), Math.pow(driver.getRawAxis(XboxController.Axis.kRightY.value), 3));
 
   }
 
