@@ -8,14 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class TankDrive extends CommandBase {
-  /** Creates a new TankDrive. */
+public class TankDriveFast extends CommandBase {
+  /** Creates a new TankDriveFast. */
 
-  // DriveTrain subsystem
   private final DriveTrain driveTrain;
   private final XboxController driver = new XboxController(0);
 
-  public TankDrive(DriveTrain driveTrain) {
+  public TankDriveFast(DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     addRequirements(this.driveTrain);
@@ -33,8 +32,8 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
 
-    driveTrain.tankDrive(0.5 * driver.getRawAxis(XboxController.Axis.kLeftY.value), 0.5 * driver.getRawAxis(XboxController.Axis.kRightY.value));
-  
+    driveTrain.tankDrive(driver.getRawAxis(XboxController.Axis.kLeftY.value), driver.getRawAxis(XboxController.Axis.kRightY.value));
+
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +41,6 @@ public class TankDrive extends CommandBase {
   public void end(boolean interrupted) {
 
     driveTrain.stopDriving();
-
   }
 
   // Returns true when the command should end.

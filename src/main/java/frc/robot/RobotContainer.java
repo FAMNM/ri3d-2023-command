@@ -5,13 +5,17 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TankDriveFast;
+import frc.robot.commands.TankDriveSlow;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -56,7 +60,8 @@ public class RobotContainer {
   private final Trigger secondaryJoystickLeft = new JoystickButton(secondary, XboxController.Button.kLeftStick.value);
   private final Trigger secondaryJoystickRight = new JoystickButton(secondary, XboxController.Button.kRightStick.value);
 
-  
+  private final Trigger driverRightTrigger = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
+  private final Trigger driverLeftTrigger = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
 
 
 
@@ -94,6 +99,12 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     driveTrain.setDefaultCommand(new TankDrive(driveTrain));
+
+    driverBack.onTrue(new ArcadeDrive(driveTrain));
+    driverStart.onTrue(new TankDrive(driveTrain));
+    driverLB.whileTrue(new TankDriveSlow(driveTrain));
+    driverRB.whileTrue(new TankDriveFast(driveTrain));
+
 
   }
 
