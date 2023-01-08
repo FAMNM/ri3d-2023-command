@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -30,6 +31,25 @@ public final class Constants {
 	public static class OperatorConstants {
 		public static final int DRIVER = 0;
 		public static final int CODRIVER = 1;
+	}
+
+	public static class Arm {
+		// TODO: Find encoder ports
+		public static final int ENCODER_PORT_A = 0;
+		public static final int ENCODER_PORT_B = 1;
+		public static final boolean ENCODER_REVERSED = false;
+		public static final EncodingType ENCODING_TYPE = EncodingType.k2X;
+		public static final double DISTANCE_PER_ENCODER_PULSE = 1;
+
+		// TODO: Find pid constants
+		public static final double KP = 0;
+		public static final double KI = 0;
+		public static final double KD = 0;
+
+		// TODO: Profile arm subsystem
+		public static final double STATIC_GAIN = 0;
+		public static final double GRAVITY_GAIN = 0;
+		public static final double VELOCITY_GAIN = 0;
 	}
 
 	public static class VisionConstants {
