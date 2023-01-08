@@ -7,7 +7,7 @@ import frc.robot.Constants;
 
 public class FourBar extends SubsystemBase {
 
-	private WPI_VictorSPX pivot;
+	private final WPI_VictorSPX pivot;
 
 	public FourBar() {
 

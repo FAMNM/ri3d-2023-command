@@ -43,7 +43,7 @@ public final class Constants {
 		// update to camera specifics
 		public static final double CAMERA_FX = 0d; // TODO what are these numbers?
 		public static final double CAMERA_FY = 0d; // TODO what are these numbers?
-		public static final double CAMERA_CX = 0d; // TODO what are these numbers?
-		public static final double CAMERA_CY = 0d; // TODO what are these numbers?
+		public static final double CAMERA_CX = RESOLUTION_WIDTH / 2; // TODO what are these numbers?
+		public static final double CAMERA_CY = RESOLUTION_WIDTH / 2; // TODO what are these numbers?
 	}
 }

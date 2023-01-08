@@ -6,7 +6,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.FourBar;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 	private final DriveTrain driveTrain = new DriveTrain();
-	private final FourBar fourbar = new FourBar();
+	private final Arm fourbar = new Arm();
 	private final Intake intake = new Intake();
 
 	// Driver controllers

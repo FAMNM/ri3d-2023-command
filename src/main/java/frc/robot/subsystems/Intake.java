@@ -7,7 +7,7 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-	private WPI_VictorSPX clamp;
+	private final WPI_VictorSPX clamp;
 
 	public Intake() {
 
@@ -19,8 +19,10 @@ public class Intake extends SubsystemBase {
 	}
 
 	public void setPower(double pwr) {
-		assert pwr >= -1d : "Lower Bound";
-		assert pwr <= 1d : "Upper Bound";
+		double boundedPower = Math.min(Math.max(pwr, -1), 1);
+		if (boundedPower != pwr) {
+			System.err.println("Intake::setPower received out of range value: " + pwr + "!");
+		}
 
 		clamp.set(pwr);
 	}

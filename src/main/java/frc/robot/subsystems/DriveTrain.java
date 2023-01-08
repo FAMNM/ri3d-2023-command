@@ -19,15 +19,15 @@ import frc.robot.Utils;
 public class DriveTrain extends SubsystemBase {
 	/** Creates a new DriveTrain. */
 
-	WPI_VictorSPX leftDrive1;
-	WPI_VictorSPX leftDrive2;
-	WPI_VictorSPX rightDrive1;
-	WPI_VictorSPX rightDrive2;
+	private final WPI_VictorSPX leftDrive1;
+	private final WPI_VictorSPX leftDrive2;
+	private final WPI_VictorSPX rightDrive1;
+	private final WPI_VictorSPX rightDrive2;
 
-	MotorControllerGroup leftDrive;
-	MotorControllerGroup rightDrive;
+	private final MotorControllerGroup leftDrive;
+	private final MotorControllerGroup rightDrive;
 
-	DifferentialDrive differentialDrive;
+	private final DifferentialDrive differentialDrive;
 
 	public DriveTrain() {
 
