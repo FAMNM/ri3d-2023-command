@@ -1,17 +1,13 @@
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.Autos;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,9 +22,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-	// The robot's subsystems and commands are defined here...
 	private final DriveTrain driveTrain = new DriveTrain();
-	private final Arm fourbar = new Arm();
+	private final Arm arm = new Arm();
 	private final Intake intake = new Intake();
 
 	// Driver controllers
