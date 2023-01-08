@@ -60,8 +60,8 @@ public class RobotContainer {
 	private final Trigger secondaryJoystickRight = new JoystickButton(secondary,
 			XboxController.Button.kRightStick.value);
 
-	private final Trigger driverRightTrigger = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
-	private final Trigger driverLeftTrigger = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
+	private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
+	private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 	// private final CommandXboxController m_driverController =
@@ -91,25 +91,12 @@ public class RobotContainer {
 	 * joysticks}.
 	 */
 	private void configureBindings() {
-
-		// Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-		// new Trigger(m_exampleSubsystem::exampleCondition)
-		// .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-		// Schedule `exampleMethodCommand` when the Xbox controller's B button is
-		// pressed,
-		// cancelling on release.
-		// m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
 		driveTrain.setDefaultCommand(new TankDriveCubed(driveTrain));
 
 		driverBack.onTrue(new ArcadeDrive(driveTrain));
 		driverStart.onTrue(new TankDrive(driveTrain));
 		driverLB.whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
 		driverRB.whileTrue(new TankDriveCubed(driveTrain));
-
-		// driver.setRumble(RumbleType.kBothRumble, 1);
-
 	}
 
 	/**
