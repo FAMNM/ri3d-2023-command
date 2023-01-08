@@ -33,6 +33,15 @@ public final class Constants {
 		public static final int CODRIVER = 1;
 	}
 
+	public static class Intake {
+		public static final double OPEN_TIME = 0.5;
+		public static final double OPEN_POWER = 0.3;
+
+		public static final double CLOSE_TIME = 0.5;
+		public static final double CLOSE_POWER = 0.3;
+		public static final double HOLD_POWER = 0.1;
+	}
+
 	public static class Arm {
 		// TODO: Find encoder ports
 		public static final int ENCODER_PORT_A = 0;

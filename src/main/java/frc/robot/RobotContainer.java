@@ -1,6 +1,9 @@
 package frc.robot;
 
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.IntakeClose;
+import frc.robot.commands.IntakeHoldClosed;
+import frc.robot.commands.IntakeOpen;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
@@ -68,6 +71,9 @@ public class RobotContainer {
 		commandDriver.start().onTrue(new TankDrive(driveTrain));
 		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
 		commandDriver.rightBumper().whileTrue(new TankDriveCubed(driveTrain));
+
+		commandSecondary.leftBumper().onTrue(new IntakeOpen(intake));
+		commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
 	}
 
 	/**
