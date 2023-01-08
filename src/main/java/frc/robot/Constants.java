@@ -18,6 +18,7 @@ public final class Constants {
 	public static final double TANK_DRIVE_SLOW_FACTOR = 0.25;
 
 	public static class MotorID {
+		// TODO: Find motor ports
 		public static final int LEFT_DRIVE_1 = 1;
 		public static final int LEFT_DRIVE_2 = 2;
 		public static final int RIGHT_DRIVE_1 = 3;

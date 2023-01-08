@@ -9,7 +9,6 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -28,32 +27,9 @@ public class RobotContainer {
 
 	// Driver controllers
 	private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
+	private final CommandXboxController commandDriver = new CommandXboxController(Constants.OperatorConstants.DRIVER);
 	private final XboxController secondary = new XboxController(Constants.OperatorConstants.CODRIVER);
-
-	// Driver button triggers
-	private final Trigger driverA = new JoystickButton(driver, XboxController.Button.kA.value);
-	private final Trigger driverB = new JoystickButton(driver, XboxController.Button.kB.value);
-	private final Trigger driverX = new JoystickButton(driver, XboxController.Button.kX.value);
-	private final Trigger driverY = new JoystickButton(driver, XboxController.Button.kY.value);
-	private final Trigger driverLB = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-	private final Trigger driverRB = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-	private final Trigger driverStart = new JoystickButton(driver, XboxController.Button.kStart.value);
-	private final Trigger driverBack = new JoystickButton(driver, XboxController.Button.kBack.value);
-	private final Trigger driverJoystickLeft = new JoystickButton(driver, XboxController.Button.kLeftStick.value);
-	private final Trigger driverJoystickRight = new JoystickButton(driver, XboxController.Button.kRightStick.value);
-
-	// Secondary controller button triggers
-	private final Trigger secondaryA = new JoystickButton(secondary, XboxController.Button.kA.value);
-	private final Trigger secondaryB = new JoystickButton(secondary, XboxController.Button.kB.value);
-	private final Trigger secondaryX = new JoystickButton(secondary, XboxController.Button.kX.value);
-	private final Trigger secondaryY = new JoystickButton(secondary, XboxController.Button.kY.value);
-	private final Trigger secondaryLB = new JoystickButton(secondary, XboxController.Button.kLeftBumper.value);
-	private final Trigger secondaryRB = new JoystickButton(secondary, XboxController.Button.kRightBumper.value);
-	private final Trigger secondaryStart = new JoystickButton(secondary, XboxController.Button.kStart.value);
-	private final Trigger secondaryBack = new JoystickButton(secondary, XboxController.Button.kBack.value);
-	private final Trigger secondaryJoystickLeft = new JoystickButton(secondary, XboxController.Button.kLeftStick.value);
-	private final Trigger secondaryJoystickRight = new JoystickButton(secondary,
-			XboxController.Button.kRightStick.value);
+	private final CommandXboxController commandSecondary = new CommandXboxController(Constants.OperatorConstants.CODRIVER);
 
 	private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
 	private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
@@ -88,10 +64,10 @@ public class RobotContainer {
 	private void configureBindings() {
 		driveTrain.setDefaultCommand(new TankDriveCubed(driveTrain));
 
-		driverBack.onTrue(new ArcadeDrive(driveTrain));
-		driverStart.onTrue(new TankDrive(driveTrain));
-		driverLB.whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
-		driverRB.whileTrue(new TankDriveCubed(driveTrain));
+		commandDriver.back().onTrue(new ArcadeDrive(driveTrain));
+		commandDriver.start().onTrue(new TankDrive(driveTrain));
+		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
+		commandDriver.rightBumper().whileTrue(new TankDriveCubed(driveTrain));
 	}
 
 	/**
@@ -101,6 +77,6 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
-    return null; // TODO: Add autonomous command
+		return null; // TODO: Add autonomous command
 	}
 }
