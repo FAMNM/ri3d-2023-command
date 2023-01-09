@@ -7,29 +7,18 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-	private final WPI_VictorSPX clamp;
+    private final WPI_VictorSPX clamp;
 
-	public Intake() {
+    public Intake() {
+        clamp = new WPI_VictorSPX(Constants.MotorID.CLAMP);
+    }
 
-		clamp = new WPI_VictorSPX(Constants.MotorID.CLAMP);
+    public void setPower(double power) {
+        double bounded = Math.min(Math.max(power, -1), 1);
+        if (bounded != power) {
+            System.err.println("Intake::setPower received out of range value: " + power + "!");
+        }
 
-		clamp.setInverted(false); // TODO test this
-		// TODO add 
-
-	}
-
-	public void setPower(double pwr) {
-		double boundedPower = Math.min(Math.max(pwr, -1), 1);
-		if (boundedPower != pwr) {
-			System.err.println("Intake::setPower received out of range value: " + pwr + "!");
-		}
-
-		clamp.set(pwr);
-	}
-
-	@Override
-	public void periodic() {
-		
-	}
-
+        clamp.set(power);
+    }
 }

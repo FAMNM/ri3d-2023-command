@@ -12,52 +12,50 @@ import frc.robot.Utils;
 import frc.robot.subsystems.DriveTrain;
 
 public class TankDrive extends CommandBase {
-  /** Creates a new TankDrive. */
+    /** Creates a new TankDrive. */
 
-  // DriveTrain subsystem
-  private final DriveTrain driveTrain;
-  private final double scale;
-  private final XboxController driver = new XboxController(0);
+    // DriveTrain subsystem
+    private final DriveTrain driveTrain;
+    private final double scale;
+    private final XboxController driver = new XboxController(0);
 
-  public TankDrive(DriveTrain driveTrain) {
-    this(driveTrain, 0.5);
-  }
+    public TankDrive(DriveTrain driveTrain) {
+        this(driveTrain, 0.5);
+    }
 
-  public TankDrive(DriveTrain driveTrain, double speedScale) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.driveTrain = driveTrain;
-    this.scale = speedScale;
-    addRequirements(this.driveTrain);
-  }
+    public TankDrive(DriveTrain driveTrain, double speedScale) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.driveTrain = driveTrain;
+        this.scale = speedScale;
+        addRequirements(this.driveTrain);
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    SmartDashboard.putString("Drive mode", "Tank Drive (speed scale = " + scale + ")");
-    driveTrain.stopDriving();
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        SmartDashboard.putString("Drive mode", "Tank Drive (speed scale = " + scale + ")");
+        driveTrain.stopDriving();
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
 
-    double demandX = scale * driver.getRawAxis(XboxController.Axis.kLeftY.value);
-    double demandY = scale * driver.getRawAxis(XboxController.Axis.kRightY.value);
+        double demandX = scale * driver.getRawAxis(XboxController.Axis.kLeftY.value);
+        double demandY = scale * driver.getRawAxis(XboxController.Axis.kRightY.value);
 
-    driveTrain.tankDrive(Utils.deadzone(demandX, 0.05), Utils.deadzone(demandY, 0.05));
-  }
+        driveTrain.tankDrive(Utils.deadzone(demandX, 0.05), Utils.deadzone(demandY, 0.05));
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        driveTrain.stopDriving();
+    }
 
-    driveTrain.stopDriving();
-
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

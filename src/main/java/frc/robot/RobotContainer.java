@@ -30,72 +30,72 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-	private final DriveTrain driveTrain = new DriveTrain();
-	private final Arm arm = new Arm();
-	private final Intake intake = new Intake();
-	// private final Vision vision = new Vision();
+    private final DriveTrain driveTrain = new DriveTrain();
+    private final Arm arm = new Arm();
+    private final Intake intake = new Intake();
+    // private final Vision vision = new Vision();
 
-	// Driver controllers
-	private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
-	private final CommandXboxController commandDriver = new CommandXboxController(Constants.OperatorConstants.DRIVER);
-	private final XboxController secondary = new XboxController(Constants.OperatorConstants.CODRIVER);
-	private final CommandXboxController commandSecondary = new CommandXboxController(Constants.OperatorConstants.CODRIVER);
+    // Driver controllers
+    private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
+    private final CommandXboxController commandDriver = new CommandXboxController(Constants.OperatorConstants.DRIVER);
+    private final XboxController secondary = new XboxController(Constants.OperatorConstants.CODRIVER);
+    private final CommandXboxController commandSecondary = new CommandXboxController(Constants.OperatorConstants.CODRIVER);
 
-	// private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
-	// private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
+    // private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
+    // private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
 
-	// Replace with CommandPS4Controller or CommandJoystick if needed
-	// private final CommandXboxController m_driverController =
-	// new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    // Replace with CommandPS4Controller or CommandJoystick if needed
+    // private final CommandXboxController m_driverController =
+    // new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-	/**
-	 * The container for the robot. Contains subsystems, OI devices, and commands.
-	 */
-	public RobotContainer() {
-		// Configure the trigger bindings
-		configureBindings();
-	}
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
+        // Configure the trigger bindings
+        configureBindings();
+    }
 
-	/**
-	 * Use this method to define your trigger->command mappings. Triggers can be
-	 * created via the
-	 * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-	 * an arbitrary
-	 * predicate, or via the named factories in {@link
-	 * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-	 * {@link
-	 * CommandXboxController
-	 * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-	 * PS4} controllers or
-	 * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-	 * joysticks}.
-	 */
-	private void configureBindings() {
-		driveTrain.setDefaultCommand(new TankDriveSmooth(driveTrain));
+    /**
+     * Use this method to define your trigger->command mappings. Triggers can be
+     * created via the
+     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+     * an arbitrary
+     * predicate, or via the named factories in {@link
+     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+     * {@link
+     * CommandXboxController
+     * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+     * PS4} controllers or
+     * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+     * joysticks}.
+     */
+    private void configureBindings() {
+        driveTrain.setDefaultCommand(new TankDriveSmooth(driveTrain));
 
-		commandDriver.back().onTrue(new ArcadeDrive(driveTrain));
-		commandDriver.start().onTrue(new TankDriveSmooth(driveTrain));
-		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
-		commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain));
+        commandDriver.back().onTrue(new ArcadeDrive(driveTrain));
+        commandDriver.start().onTrue(new TankDriveSmooth(driveTrain));
+        commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
+        commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain));
 
 
-		commandSecondary.rightTrigger(0.05).whileTrue(new RunArmForward(arm, secondary));
-		commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, secondary));
-		commandSecondary.a().whileTrue(new HoldArm(arm, Constants.Arm.HIGH_HOLD_POWER));
-		commandSecondary.b().whileTrue(new HoldArm(arm, Constants.Arm.LOW_HOLD_POWER));
-		commandSecondary.x().onTrue(new InstantCommand(() -> {}, intake));
+        commandSecondary.rightTrigger(0.05).whileTrue(new RunArmForward(arm, secondary));
+        commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, secondary));
+        commandSecondary.a().whileTrue(new HoldArm(arm, Constants.Arm.HIGH_HOLD_POWER));
+        commandSecondary.b().whileTrue(new HoldArm(arm, Constants.Arm.LOW_HOLD_POWER));
+        commandSecondary.x().onTrue(new InstantCommand(() -> {}, intake));
 
-		commandSecondary.leftBumper().whileTrue(new IntakeHoldOpen(intake)).onFalse(new IntakeOpen(intake));
-		commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
-	}
+        commandSecondary.leftBumper().whileTrue(new IntakeHoldOpen(intake)).onFalse(new IntakeOpen(intake));
+        commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
+    }
 
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 *
-	 * @return the command to run in autonomous
-	 */
-	public Command getAutonomousCommand() {
-		// An example command will be run in autonomous
-		return null; // TODO: Add autonomous command
-	}
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An example command will be run in autonomous
+        return null; // TODO: Add autonomous command
+    }
 }

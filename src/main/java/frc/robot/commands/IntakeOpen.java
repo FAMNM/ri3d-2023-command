@@ -13,7 +13,7 @@ public class IntakeOpen extends WaitCommand {
         this.intake = intake;
         addRequirements(intake);
     }
-    
+
     @Override
     public void initialize() {
         super.initialize();

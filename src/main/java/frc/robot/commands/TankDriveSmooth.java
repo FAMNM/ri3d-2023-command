@@ -13,44 +13,44 @@ import frc.robot.Utils;
 import frc.robot.subsystems.DriveTrain;
 
 public class TankDriveSmooth extends CommandBase {
-  /** Creates a new TankDriveFast. */
+    /** Creates a new TankDriveFast. */
 
-  private final DriveTrain driveTrain;
-  private final XboxController driver = new XboxController(0);
+    private final DriveTrain driveTrain;
+    private final XboxController driver = new XboxController(0);
 
-  public TankDriveSmooth(DriveTrain driveTrain) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.driveTrain = driveTrain;
-    addRequirements(this.driveTrain);
-  }
+    public TankDriveSmooth(DriveTrain driveTrain) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.driveTrain = driveTrain;
+        addRequirements(this.driveTrain);
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    SmartDashboard.putString("Drive mode", "Tank Drive cubed");
-    driveTrain.stopDriving();
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        SmartDashboard.putString("Drive mode", "Tank Drive cubed");
+        driveTrain.stopDriving();
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
-      Utils.deadzone(driver.getLeftY(), 0.05),
-      Utils.deadzone(driver.getRightY(), 0.05),
-      true);
-    driveTrain.setPowers(speeds);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
+            Utils.deadzone(driver.getLeftY(), 0.05),
+            Utils.deadzone(driver.getRightY(), 0.05),
+            true);
+        driveTrain.setPowers(speeds);
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
 
-    driveTrain.stopDriving();
-  }
+        driveTrain.stopDriving();
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
