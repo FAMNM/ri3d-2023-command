@@ -4,6 +4,9 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeClose;
 import frc.robot.commands.IntakeHoldClosed;
 import frc.robot.commands.IntakeOpen;
+import frc.robot.commands.RunArmBack;
+import frc.robot.commands.RunArmForward;
+import frc.robot.commands.StopArm;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
@@ -71,6 +74,9 @@ public class RobotContainer {
 		commandDriver.start().onTrue(new TankDrive(driveTrain));
 		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
 		commandDriver.rightBumper().whileTrue(new TankDriveCubed(driveTrain));
+		commandDriver.rightTrigger(0.5).whileTrue(new RunArmForward(arm));
+		commandDriver.leftTrigger(0.5).whileTrue(new RunArmBack(arm));
+		commandDriver.a().onTrue(new StopArm(arm));
 
 		commandSecondary.leftBumper().onTrue(new IntakeOpen(intake));
 		commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
