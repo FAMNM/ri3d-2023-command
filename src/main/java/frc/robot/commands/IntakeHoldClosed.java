@@ -1,11 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 public class IntakeHoldClosed extends CommandBase {
-    private final Intake intake;
+
+    public final Intake intake;
 
     public IntakeHoldClosed(Intake intake) {
         this.intake = intake;
