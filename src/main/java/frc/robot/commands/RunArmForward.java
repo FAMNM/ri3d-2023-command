@@ -24,10 +24,9 @@ public class RunArmForward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.setPower(0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+    // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // arm.setPower(0.325);

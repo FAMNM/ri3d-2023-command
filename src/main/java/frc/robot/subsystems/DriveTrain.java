@@ -63,9 +63,12 @@ public class DriveTrain extends SubsystemBase {
 		setPowers(new WheelSpeeds());
 	}
 
-	private void setPowers(WheelSpeeds speeds) {
-		differentialDrive.tankDrive(speeds.left, speeds.right);
+	public void setPowers(WheelSpeeds speeds) {
+		WheelSpeeds speeds2 = new WheelSpeeds((speeds.left * 0.7) + Math.signum(speeds.left) * 0.3, (speeds.right * 0.7) + Math.signum(speeds.right) * 0.3);
+		differentialDrive.tankDrive(speeds2.left, speeds2.right, false);
 		SmartDashboard.putNumber("Drivetrain/left speed", speeds.left);
 		SmartDashboard.putNumber("Drivetrain/right speed", speeds.right);
+		SmartDashboard.putNumber("Drivetrain/left speed2", speeds2.left);
+		SmartDashboard.putNumber("Drivetrain/right speed2", speeds2.right);
 	}
 }

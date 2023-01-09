@@ -3,18 +3,20 @@ package frc.robot;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeClose;
 import frc.robot.commands.IntakeHoldClosed;
+import frc.robot.commands.IntakeHoldOpen;
 import frc.robot.commands.IntakeOpen;
 import frc.robot.commands.RunArmBack;
 import frc.robot.commands.RunArmForward;
 import frc.robot.commands.HoldArm;
 import frc.robot.commands.TankDrive;
-import frc.robot.commands.TankDriveCubed;
+import frc.robot.commands.TankDriveSmooth;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -31,7 +33,7 @@ public class RobotContainer {
 	private final DriveTrain driveTrain = new DriveTrain();
 	private final Arm arm = new Arm();
 	private final Intake intake = new Intake();
-	private final Vision vision = new Vision();
+	// private final Vision vision = new Vision();
 
 	// Driver controllers
 	private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
@@ -69,19 +71,21 @@ public class RobotContainer {
 	 * joysticks}.
 	 */
 	private void configureBindings() {
-		driveTrain.setDefaultCommand(new TankDriveCubed(driveTrain));
+		driveTrain.setDefaultCommand(new TankDriveSmooth(driveTrain));
 
 		commandDriver.back().onTrue(new ArcadeDrive(driveTrain));
-		commandDriver.start().onTrue(new TankDrive(driveTrain));
+		commandDriver.start().onTrue(new TankDriveSmooth(driveTrain));
 		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
-		commandDriver.rightBumper().whileTrue(new TankDriveCubed(driveTrain));
+		commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain));
 
 
 		commandSecondary.rightTrigger(0.05).whileTrue(new RunArmForward(arm, secondary));
 		commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, secondary));
-		commandSecondary.a().whileTrue(new HoldArm(arm));
+		commandSecondary.a().whileTrue(new HoldArm(arm, Constants.Arm.HIGH_HOLD_POWER));
+		commandSecondary.b().whileTrue(new HoldArm(arm, Constants.Arm.LOW_HOLD_POWER));
+		commandSecondary.x().onTrue(new InstantCommand(() -> {}, intake));
 
-		commandSecondary.leftBumper().onTrue(new IntakeOpen(intake));
+		commandSecondary.leftBumper().whileTrue(new IntakeHoldOpen(intake)).onFalse(new IntakeOpen(intake));
 		commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
 	}
 

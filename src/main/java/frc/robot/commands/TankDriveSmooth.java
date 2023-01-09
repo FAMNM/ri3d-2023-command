@@ -5,17 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Utils;
 import frc.robot.subsystems.DriveTrain;
 
-public class TankDriveCubed extends CommandBase {
+public class TankDriveSmooth extends CommandBase {
   /** Creates a new TankDriveFast. */
 
   private final DriveTrain driveTrain;
   private final XboxController driver = new XboxController(0);
 
-  public TankDriveCubed(DriveTrain driveTrain) {
+  public TankDriveSmooth(DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrain = driveTrain;
     addRequirements(this.driveTrain);
@@ -31,9 +34,11 @@ public class TankDriveCubed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    driveTrain.tankDrive(Math.pow(driver.getLeftY(), 3), Math.pow(driver.getRightY(), 3));
-
+    WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
+      Utils.deadzone(driver.getLeftY(), 0.05),
+      Utils.deadzone(driver.getRightY(), 0.05),
+      true);
+    driveTrain.setPowers(speeds);
   }
 
   // Called once the command ends or is interrupted.

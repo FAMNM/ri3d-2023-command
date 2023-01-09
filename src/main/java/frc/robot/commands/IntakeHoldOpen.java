@@ -4,23 +4,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
-public class IntakeHoldClosed extends CommandBase {
+public class IntakeHoldOpen extends CommandBase {
 
     public final Intake intake;
 
-    public IntakeHoldClosed(Intake intake) {
+    public IntakeHoldOpen(Intake intake) {
         this.intake = intake;
         addRequirements(intake);
     }
 
     @Override
     public void initialize() {
-        intake.setPower(Constants.Intake.HOLD_CLOSED_POWER);
-    }
-
-    @Override
-    public void execute() {
-      
+        intake.setPower(Constants.Intake.HOLD_OPEN_POWER);
     }
 
     @Override
@@ -33,5 +28,4 @@ public class IntakeHoldClosed extends CommandBase {
     public boolean isFinished() {
         return false;
     }
-    
 }

@@ -36,10 +36,11 @@ public final class Constants {
 	public static class Intake {
 		public static final double OPEN_TIME = 0.3;
 		public static final double OPEN_POWER = 0.2;
+		public static final double HOLD_OPEN_POWER = 0.23;
 
-		public static final double CLOSE_TIME = 0.3;
-		public static final double CLOSE_POWER = -0.2;
-		public static final double HOLD_POWER = -0.23;
+		public static final double CLOSE_TIME = 0.7;
+		public static final double CLOSE_POWER = -0.1;
+		public static final double HOLD_CLOSED_POWER = -0.23;
 		// public static final double OPEN_TIME = 0.5;
 		// public static final double OPEN_POWER = 0.3;
 
@@ -65,6 +66,9 @@ public final class Constants {
 		public static final double STATIC_GAIN = 0;
 		public static final double GRAVITY_GAIN = 0;
 		public static final double VELOCITY_GAIN = 0;
+
+		public static final double HIGH_HOLD_POWER = 0.24;
+		public static final double LOW_HOLD_POWER = 0.1;
 	}
 
 	public static class VisionConstants {

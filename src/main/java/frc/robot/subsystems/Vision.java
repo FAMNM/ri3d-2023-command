@@ -29,19 +29,19 @@ import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
 
-	private final UsbCamera camera;
-	private final CvSink cvSink;
-	// private final Mat mat = new Mat(); // image
+	// private final UsbCamera camera;
+	// private final CvSink cvSink;
+	// private Mat mat = new Mat(Constants.VisionConstants.RESOLUTION_WIDTH, Constants.VisionConstants.RESOLUTION_WIDTH); // image
 	private final AprilTagDetector detector;
 	private final AprilTagPoseEstimator poseEstimator;
 	private final Map<Integer, Transform3d> poseEstimations;
 	// private final Optional<AprilTagFieldLayout> field;
 
 	public Vision() {
-		// Start & Config Camera
-		camera = CameraServer.startAutomaticCapture();
-		camera.setResolution(Constants.VisionConstants.RESOLUTION_WIDTH, Constants.VisionConstants.RESOLUTION_WIDTH);
-		cvSink = CameraServer.getVideo();
+		// // Start & Config Camera
+		// camera = CameraServer.startAutomaticCapture();
+		// camera.setResolution(Constants.VisionConstants.RESOLUTION_WIDTH, Constants.VisionConstants.RESOLUTION_WIDTH);
+		// cvSink = CameraServer.getVideo();
 
 		// Configure April Tag Field
 		// field = getField();

@@ -11,32 +11,24 @@ public class HoldArm extends CommandBase {
   /** Creates a new RunArm. */
 
   private final Arm arm;
+  private final double power;
 
-  public HoldArm(Arm arm) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public HoldArm(Arm arm, double power) {
     this.arm = arm;
+    this.power = power;
     addRequirements(arm);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    arm.setPower(power);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    arm.setPower(0.24);
-  }
-
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     arm.setPower(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
