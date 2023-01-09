@@ -71,12 +71,12 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
-        driveTrain.setDefaultCommand(new TankDriveSmooth(driveTrain));
+        driveTrain.setDefaultCommand(new TankDriveSmooth(driveTrain, () -> -driver.getLeftY(), () -> -driver.getRightY()));
 
-        commandDriver.back().onTrue(new ArcadeDrive(driveTrain));
-        commandDriver.start().onTrue(new TankDriveSmooth(driveTrain));
-        commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
-        commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain));
+        commandDriver.back().onTrue(new ArcadeDrive(driveTrain, () -> -driver.getLeftY(), () -> -driver.getRightX()));
+        commandDriver.start().onTrue(new InstantCommand(() -> {}, driveTrain));
+        commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR, () -> -driver.getLeftY(), () -> -1 * driver.getRightY()));
+        commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain, () -> -driver.getLeftY(), () -> -driver.getRightY()));
 
         arm.setDefaultCommand(new RunArmForward(arm, () -> secondary.getRightTriggerAxis() * 0.43));
 

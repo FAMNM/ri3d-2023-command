@@ -4,7 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,18 +17,21 @@ public class TankDriveSmooth extends CommandBase {
     /** Creates a new TankDriveFast. */
 
     private final DriveTrain driveTrain;
-    private final XboxController driver = new XboxController(0);
+    private final DoubleSupplier right;
+    private final DoubleSupplier left;
 
-    public TankDriveSmooth(DriveTrain driveTrain) {
+    public TankDriveSmooth(DriveTrain driveTrain, DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.driveTrain = driveTrain;
+        this.left = leftSupplier;
+        this.right = rightSupplier;
         addRequirements(this.driveTrain);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        SmartDashboard.putString("Drive mode", "Tank Drive cubed");
+        SmartDashboard.putString("Drive mode", "Tank Drive Smooth");
         driveTrain.stopDriving();
     }
 
@@ -35,8 +39,8 @@ public class TankDriveSmooth extends CommandBase {
     @Override
     public void execute() {
         WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
-            Utils.deadzone(driver.getLeftY(), 0.05),
-            Utils.deadzone(driver.getRightY(), 0.05),
+            Utils.deadzone(left.getAsDouble(), 0.05),
+            Utils.deadzone(right.getAsDouble(), 0.05),
             true);
         driveTrain.setPowers(speeds);
     }

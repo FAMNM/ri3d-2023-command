@@ -52,11 +52,19 @@ public class DriveTrain extends SubsystemBase {
     } // Famnms really awesome dude
 
     public void arcadeDrive(double xSpeed, double zRotation) {
-        setPowers(DifferentialDrive.arcadeDriveIK(0.6 * xSpeed, 0.5 * zRotation, false)); //tune these
+        arcadeDrive(xSpeed, zRotation, false);
+    }
+
+    public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
+        setPowers(DifferentialDrive.arcadeDriveIK(xSpeed, zRotation, squareInputs));
     }
 
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        setPowers(DifferentialDrive.tankDriveIK(leftSpeed, rightSpeed, false));
+        tankDrive(leftSpeed, rightSpeed, false);
+    }
+
+    public void tankDrive(double leftSpeed, double rightSpeed, boolean squareInputs) {
+        setPowers(DifferentialDrive.tankDriveIK(leftSpeed, rightSpeed, squareInputs));
     }
 
     public void stopDriving() {
@@ -67,7 +75,7 @@ public class DriveTrain extends SubsystemBase {
         WheelSpeeds adjusted = new WheelSpeeds(
             (speeds.left * (1 - Constants.DriveTrain.MIN_MOTOR_OUTPUT)) + Math.signum(speeds.left) * Constants.DriveTrain.MIN_MOTOR_OUTPUT,
             (speeds.right * (1 - Constants.DriveTrain.MIN_MOTOR_OUTPUT)) + Math.signum(speeds.right) * Constants.DriveTrain.MIN_MOTOR_OUTPUT);
-        differentialDrive.tankDrive(adjusted.left, adjusted.right, false);
+        differentialDrive.tankDrive(-adjusted.left, -adjusted.right, false);
         SmartDashboard.putNumber("Drivetrain/left demand", speeds.left);
         SmartDashboard.putNumber("Drivetrain/right demand", speeds.right);
         SmartDashboard.putNumber("Drivetrain/left output", adjusted.left);

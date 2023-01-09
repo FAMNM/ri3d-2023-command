@@ -4,20 +4,26 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Utils;
 import frc.robot.subsystems.DriveTrain;
 
 public class ArcadeDrive extends CommandBase {
     /** Creates a new ArcadeDrive. */
 
     private final DriveTrain driveTrain;
-    private final XboxController driver = new XboxController(0);
+    private final DoubleSupplier forward;
+    private final DoubleSupplier turning;
     
-    public ArcadeDrive(DriveTrain driveTrain) {
+    public ArcadeDrive(DriveTrain driveTrain, DoubleSupplier forwardSupplier, DoubleSupplier turningSupplier) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.driveTrain = driveTrain;
+        forward = forwardSupplier;
+        turning = turningSupplier;
         addRequirements(this.driveTrain);
     }
 
@@ -32,8 +38,9 @@ public class ArcadeDrive extends CommandBase {
     @Override
     public void execute() {
         driveTrain.arcadeDrive(
-            driver.getRawAxis(XboxController.Axis.kLeftY.value),
-            driver.getRawAxis(XboxController.Axis.kRightX.value));
+            Utils.deadzone(forward.getAsDouble(), 0.05),
+            Utils.deadzone(turning.getAsDouble(), 0.05),
+            true);
     }
 
     // Called once the command ends or is interrupted.

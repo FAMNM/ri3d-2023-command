@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,31 +19,34 @@ public class TankDrive extends CommandBase {
     // DriveTrain subsystem
     private final DriveTrain driveTrain;
     private final double scale;
-    private final XboxController driver = new XboxController(0);
+    private final DoubleSupplier left;
+    private final DoubleSupplier right;
 
-    public TankDrive(DriveTrain driveTrain) {
-        this(driveTrain, 0.5);
+    public TankDrive(DriveTrain driveTrain, DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
+        this(driveTrain, 0.5, leftSupplier, rightSupplier);
     }
 
-    public TankDrive(DriveTrain driveTrain, double speedScale) {
+    public TankDrive(DriveTrain driveTrain, double speedScale, DoubleSupplier leftSupplier, DoubleSupplier rightSupplier) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.driveTrain = driveTrain;
         this.scale = speedScale;
+        this.left = leftSupplier;
+        this.right = rightSupplier;
         addRequirements(this.driveTrain);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        SmartDashboard.putString("Drive mode", "Tank Drive (speed scale = " + scale + ")");
+        SmartDashboard.putString("Drive mode", "Tank Drive Linear (speed scale = " + scale + ")");
         driveTrain.stopDriving();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double demandX = scale * driver.getRawAxis(XboxController.Axis.kLeftY.value);
-        double demandY = scale * driver.getRawAxis(XboxController.Axis.kRightY.value);
+        double demandX = scale * left.getAsDouble();
+        double demandY = scale * right.getAsDouble();
 
         driveTrain.tankDrive(Utils.deadzone(demandX, 0.05), Utils.deadzone(demandY, 0.05));
     }
