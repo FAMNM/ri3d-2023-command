@@ -19,48 +19,21 @@ public class Arm extends SubsystemBase {
 	// private double setpoint;
 
 	public Arm() {
-
 		pivot = new WPI_VictorSPX(Constants.MotorID.ARM);
 		SmartDashboard.putNumber("Arm Power", 0);
-
-		// // TODO add
-
-		// encoder = new Encoder(
-		// 	Constants.Arm.ENCODER_PORT_A,
-		// 	Constants.Arm.ENCODER_PORT_B,
-		// 	Constants.Arm.ENCODER_REVERSED,
-		// 	Constants.Arm.ENCODING_TYPE);
-		// encoder.setDistancePerPulse(Constants.Arm.DISTANCE_PER_ENCODER_PULSE);
-		// encoder.setSamplesToAverage(((int) SmartDashboard.getNumber("Arm encoder samples to average", 0)));
-
-		// pidController = new PIDController(
-		// 	Constants.Arm.KP,
-		// 	Constants.Arm.KI,
-		// 	Constants.Arm.KD);
-
-		// feedforward = new ArmFeedforward(
-		// 	Constants.Arm.STATIC_GAIN,
-		// 	Constants.Arm.GRAVITY_GAIN,
-		// 	Constants.Arm.VELOCITY_GAIN);
 	}
 
-	public void setPower(double pwr) {
-		assert pwr >= -1d : "Lower Bound";
-		assert pwr <= 1d : "Upper Bound";
-
-		pivot.set(pwr);
+	public void setPower(double power) {
+		double clamped = Math.max(Math.min(power, 1), -1);
+		if (clamped != power) {
+			System.err.println("Arm received out of range power " + power + "!");
+			System.err.println("Clamping to " + clamped);
+		}
+		pivot.set(clamped);
 	}
-
-	// public void setSetpoint(double setpoint) {
-	// 	this.setpoint = setpoint;
-	// }
 
 	@Override
 	public void periodic() {
-		// double pidOutput = pidController.calculate(encoder.getDistance(), setpoint);
-		// double feedforwardOutput = feedforward.calculate(encoder.getDistance(), encoder.getRate());
-		// setPower(SmartDashboard.getNumber("Arm Power", 0));
-		// System.out.println(SmartDashboard.getNumber("Arm Power", 0));
 	}
 
 }
