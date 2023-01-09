@@ -11,6 +11,7 @@ public class IntakeOpen extends WaitCommand {
     public IntakeOpen(Intake intake) {
         super(Constants.Intake.OPEN_TIME);
         this.intake = intake;
+        addRequirements(intake);
     }
     
     @Override

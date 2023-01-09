@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
-public class StopArm extends CommandBase {
+public class HoldArm extends CommandBase {
   /** Creates a new RunArm. */
 
   private final Arm arm;
 
-  public StopArm(Arm arm) {
+  public HoldArm(Arm arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
     addRequirements(arm);
@@ -21,13 +21,13 @@ public class StopArm extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.setPower(0);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setPower(0);
+    arm.setPower(0.24);
   }
 
   // Called once the command ends or is interrupted.

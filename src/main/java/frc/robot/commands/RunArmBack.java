@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
@@ -11,10 +12,12 @@ public class RunArmBack extends CommandBase {
   /** Creates a new RunArm. */
 
   private final Arm arm;
+  private final XboxController secondary;
 
-  public RunArmBack(Arm arm) {
+  public RunArmBack(Arm arm, XboxController secondary) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
+    this.secondary = secondary;
     addRequirements(arm);
   }
 
@@ -27,7 +30,11 @@ public class RunArmBack extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.setPower(-0.5);
+    if (secondary.getAButtonPressed()) {
+      arm.setPower(0.24);
+    } else {
+      arm.setPower(secondary.getLeftTriggerAxis() * -0.1);
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -59,7 +59,8 @@ public class Arm extends SubsystemBase {
 	public void periodic() {
 		// double pidOutput = pidController.calculate(encoder.getDistance(), setpoint);
 		// double feedforwardOutput = feedforward.calculate(encoder.getDistance(), encoder.getRate());
-		setPower(SmartDashboard.getNumber("Arm Power", 0));
+		// setPower(SmartDashboard.getNumber("Arm Power", 0));
+		// System.out.println(SmartDashboard.getNumber("Arm Power", 0));
 	}
 
 }

@@ -9,6 +9,7 @@ public class IntakeHoldClosed extends CommandBase {
 
     public IntakeHoldClosed(Intake intake) {
         this.intake = intake;
+        addRequirements(intake);
     }
 
     @Override

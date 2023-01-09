@@ -6,12 +6,13 @@ import frc.robot.commands.IntakeHoldClosed;
 import frc.robot.commands.IntakeOpen;
 import frc.robot.commands.RunArmBack;
 import frc.robot.commands.RunArmForward;
-import frc.robot.commands.StopArm;
+import frc.robot.commands.HoldArm;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,6 +31,7 @@ public class RobotContainer {
 	private final DriveTrain driveTrain = new DriveTrain();
 	private final Arm arm = new Arm();
 	private final Intake intake = new Intake();
+	private final Vision vision = new Vision();
 
 	// Driver controllers
 	private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
@@ -37,8 +39,8 @@ public class RobotContainer {
 	private final XboxController secondary = new XboxController(Constants.OperatorConstants.CODRIVER);
 	private final CommandXboxController commandSecondary = new CommandXboxController(Constants.OperatorConstants.CODRIVER);
 
-	private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
-	private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
+	// private final Trigger driverRightTriggerActivated = new Trigger(() -> driver.getRightTriggerAxis() >= 0.5);
+	// private final Trigger driverLeftTriggerActivated = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.5);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 	// private final CommandXboxController m_driverController =
@@ -74,9 +76,11 @@ public class RobotContainer {
 		commandDriver.start().onTrue(new TankDrive(driveTrain));
 		commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
 		commandDriver.rightBumper().whileTrue(new TankDriveCubed(driveTrain));
-		commandDriver.rightTrigger(0.5).whileTrue(new RunArmForward(arm));
-		commandDriver.leftTrigger(0.5).whileTrue(new RunArmBack(arm));
-		commandDriver.a().onTrue(new StopArm(arm));
+
+
+		commandSecondary.rightTrigger(0.05).whileTrue(new RunArmForward(arm, secondary));
+		commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, secondary));
+		commandSecondary.a().whileTrue(new HoldArm(arm));
 
 		commandSecondary.leftBumper().onTrue(new IntakeOpen(intake));
 		commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));

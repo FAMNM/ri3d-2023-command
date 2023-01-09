@@ -22,8 +22,8 @@ public final class Constants {
 		// TODO: Find motor ports
 		public static final int LEFT_DRIVE_1 = 1;
 		public static final int LEFT_DRIVE_2 = 2;
-		public static final int RIGHT_DRIVE_1 = 3;
-		public static final int RIGHT_DRIVE_2 = 4;
+		public static final int RIGHT_DRIVE_1 = 7;
+		public static final int RIGHT_DRIVE_2 = 8;
 		public static final int ARM = 5;
 		public static final int CLAMP = 6;
 	}
@@ -34,12 +34,18 @@ public final class Constants {
 	}
 
 	public static class Intake {
-		public static final double OPEN_TIME = 0.5;
-		public static final double OPEN_POWER = 0.3;
+		public static final double OPEN_TIME = 0.3;
+		public static final double OPEN_POWER = 0.2;
 
-		public static final double CLOSE_TIME = 0.5;
-		public static final double CLOSE_POWER = 0.3;
-		public static final double HOLD_POWER = 0.1;
+		public static final double CLOSE_TIME = 0.3;
+		public static final double CLOSE_POWER = -0.2;
+		public static final double HOLD_POWER = -0.23;
+		// public static final double OPEN_TIME = 0.5;
+		// public static final double OPEN_POWER = 0.3;
+
+		// public static final double CLOSE_TIME = 0.5;
+		// public static final double CLOSE_POWER = 0.3;
+		// public static final double HOLD_POWER = 0.1;
 	}
 
 	public static class Arm {

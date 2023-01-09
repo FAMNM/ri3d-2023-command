@@ -10,6 +10,7 @@ public class IntakeClose extends WaitCommand {
     public IntakeClose(Intake intake) {
         super(Constants.Intake.CLOSE_TIME);
         this.intake = intake;
+        addRequirements(intake);
     }
 
     @Override
