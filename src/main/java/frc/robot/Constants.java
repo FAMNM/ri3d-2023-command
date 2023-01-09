@@ -22,8 +22,8 @@ public final class Constants {
 		// TODO: Find motor ports
 		public static final int LEFT_DRIVE_1 = 1;
 		public static final int LEFT_DRIVE_2 = 2;
-		public static final int RIGHT_DRIVE_1 = 3;
-		public static final int RIGHT_DRIVE_2 = 4;
+		public static final int RIGHT_DRIVE_1 = 7;
+		public static final int RIGHT_DRIVE_2 = 8;
 		public static final int ARM = 5;
 		public static final int CLAMP = 6;
 	}
