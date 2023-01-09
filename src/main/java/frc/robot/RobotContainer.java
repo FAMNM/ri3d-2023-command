@@ -12,6 +12,7 @@ import frc.robot.commands.TankDriveCubed;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,6 +31,7 @@ public class RobotContainer {
 	private final DriveTrain driveTrain = new DriveTrain();
 	private final Arm arm = new Arm();
 	private final Intake intake = new Intake();
+	private final Vision vision = new Vision();
 
 	// Driver controllers
 	private final XboxController driver = new XboxController(Constants.OperatorConstants.DRIVER);
@@ -50,7 +52,6 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Configure the trigger bindings
 		configureBindings();
-
 	}
 
 	/**
