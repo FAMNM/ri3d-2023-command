@@ -40,7 +40,6 @@ public class TankDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
         double demandX = scale * driver.getRawAxis(XboxController.Axis.kLeftY.value);
         double demandY = scale * driver.getRawAxis(XboxController.Axis.kRightY.value);
 

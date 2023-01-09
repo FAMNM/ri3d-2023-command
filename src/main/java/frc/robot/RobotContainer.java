@@ -78,9 +78,9 @@ public class RobotContainer {
         commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR));
         commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain));
 
+        arm.setDefaultCommand(new RunArmForward(arm, () -> secondary.getRightTriggerAxis() * 0.43));
 
-        commandSecondary.rightTrigger(0.05).whileTrue(new RunArmForward(arm, secondary));
-        commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, secondary));
+        commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, () -> secondary.getLeftTriggerAxis() * -0.1));
         commandSecondary.a().whileTrue(new HoldArm(arm, Constants.Arm.HIGH_HOLD_POWER));
         commandSecondary.b().whileTrue(new HoldArm(arm, Constants.Arm.LOW_HOLD_POWER));
         commandSecondary.x().onTrue(new InstantCommand(() -> {}, intake));
