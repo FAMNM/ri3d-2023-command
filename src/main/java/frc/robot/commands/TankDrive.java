@@ -49,6 +49,7 @@ public class TankDrive extends CommandBase {
         double demandY = scale * right.getAsDouble();
 
         driveTrain.tankDrive(Utils.deadzone(demandX, 0.05), Utils.deadzone(demandY, 0.05));
+        // driveTrain.tankDrive(0.5 * Utils.deadzone(demandX, 0.05), 0.4 * Utils.deadzone(demandY, 0.05));
     }
 
     // Called once the command ends or is interrupted.

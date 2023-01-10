@@ -78,7 +78,8 @@ public class RobotContainer {
         commandDriver.leftBumper().whileTrue(new TankDrive(driveTrain, Constants.TANK_DRIVE_SLOW_FACTOR, () -> -driver.getLeftY(), () -> -1 * driver.getRightY()));
         commandDriver.rightBumper().whileTrue(new TankDrive(driveTrain, () -> -driver.getLeftY(), () -> -driver.getRightY()));
 
-        arm.setDefaultCommand(new RunArmForward(arm, () -> secondary.getRightTriggerAxis() * 0.43));
+        arm.setDefaultCommand(new RunArmForward(arm, () -> secondary.getRightTriggerAxis() * 0.5));
+        // arm.setDefaultCommand(new RunArmForward(arm, () -> secondary.getRightTriggerAxis() * 0.43));
 
         commandSecondary.leftTrigger(0.05).whileTrue(new RunArmBack(arm, () -> secondary.getLeftTriggerAxis() * -0.1));
         commandSecondary.a().whileTrue(new HoldArm(arm, Constants.Arm.HIGH_HOLD_POWER));
@@ -87,6 +88,10 @@ public class RobotContainer {
 
         commandSecondary.leftBumper().whileTrue(new IntakeHoldOpen(intake)).onFalse(new IntakeOpen(intake));
         commandSecondary.rightBumper().onTrue(new IntakeClose(intake).andThen(new IntakeHoldClosed(intake)));
+		//.42l .1r
+		// .7l .21r
+		// .64l .12r
+		// 1l .4r
     }
 
     /**
