@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.Autos;
 import frc.robot.commands.IntakeClose;
 import frc.robot.commands.IntakeHoldClosed;
 import frc.robot.commands.IntakeHoldOpen;
@@ -101,6 +102,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return null; // TODO: Add autonomous command
+        return Autos.exampleAuto(driveTrain);
     }
 }
