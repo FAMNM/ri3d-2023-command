@@ -40,7 +40,8 @@ public class TankDriveSmooth extends CommandBase {
     public void execute() {
         WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
             Utils.deadzone(left.getAsDouble(), 0.05),
-            0.65 * Utils.deadzone(right.getAsDouble(), 0.05),
+            0.75 * Utils.deadzone(right.getAsDouble(), 0.05),
+            // 0.65 * Utils.deadzone(right.getAsDouble(), 0.05),
             true);
         driveTrain.setPowers(speeds);
         // WheelSpeeds speeds = DifferentialDrive.tankDriveIK(
